@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font: 1.6rem/1.5 Helvetica, sans-serif;
+  margin: 0;
+  padding: 0 10%; }
+
+header {
+  margin-top: 3rem;
+  text-align: center; }
+
+main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem; }
+  main article {
+    position: relative; }
+    main article:hover h5 {
+      opacity: 1;
+      transform: translateY(0px); }
+    main article h5 {
+      opacity: 0;
+      display: block;
+      position: absolute;
+      bottom: .7rem;
+      padding: 2rem;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      width: 100%;
+      margin: 0;
+      transition: all 0.25s ease-out;
+      transform: translateY(30px); }
+    main article img {
+      margin: 0 auto;
+      width: 100%;
+      object-fit: cover;
+      height: 400px; }
+
+footer {
+  text-align: center; }
+
+h1 {
+  margin: 0; }
+
+#quote {
+  margin: 0 0 5rem 0;
+  display: inline; }
+
+#author {
+  margin: 0;
+  display: inline; }
