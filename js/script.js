@@ -1,37 +1,70 @@
 // Selectors
-const image = document.querySelectorAll('main > img');
-const main = document.querySelector('main');
-const quote = document.querySelector('#quote q');
-const author = document.querySelector('#author');
+const logo = document.querySelector("#logo");
+const logoLink = document.querySelector("nav a");
+const image = document.querySelectorAll("main > img");
+const main = document.querySelector("main");
+const quote = document.querySelector("#quote q");
+const author = document.querySelector("#author");
 const apikey = "ec8972b23e307b45b0f47bcdf678155caf306bfe075174393a67c1b8c25e59ac";
 const endpoint = `https://api.unsplash.com/photos/?per_page=9&client_id=${apikey}`;
-let content = '';
+let content = "";
+let count = 1;
 
 function buildHTML(data) {
-  console.log(data)
   data.forEach(image => {
     content +=
-      `<article><h5>Author: ${image.user.name}<br>Likes: ${image.likes}</h5><img src="${image.urls.small}"  srcset="${image.urls.small} 400w, ${image.urls.regular} 1080w, ${image.urls.full} 2560w" alt="${image.description}"/></article>`;
+      `<article>
+          <ul>
+            <li>${image.user.name}</li>
+            <li>${image.likes}</li>
+          </ul>
+
+          <img src="${image.urls.small}"  alt="${image.description}"/></article>`;
   })
+  // Commented srcset out and moved it down here because it makes the page very buggy.
+  // srcset="${image.urls.small} 400w, ${image.urls.regular} 1080w, ${image.urls.full} 2560w"
 
   main.innerHTML = content;
 }
 
-function getImages() {
+function getImages(endpoint) {
   fetch(endpoint)
     .then(response => {
       if (response.ok) {
         return response.json();
         console.log(response.json());
       } else {
-        return Promise.reject('Error!')
+        return Promise.reject("Error!")
       }
     })
     .then(data => buildHTML(data))
-    .catch(error => console.log('Error is', error));
+    .catch(error => console.log("Error is", error));
 }
 
-getImages();
+getImages(endpoint);
+
+
+function getDistFromBottom() {
+  const scrollPosition = window.pageYOffset;
+  const windowSize = window.innerHeight;
+  const bodyHeight = document.body.offsetHeight;
+  return Math.max(bodyHeight - (scrollPosition + windowSize), 0);
+}
+
+window.addEventListener("scroll", (event) => {
+  const distance = getDistFromBottom();
+  console.log(distance);
+  if (distance <= Math.floor(window.innerHeight / 8)) {
+    count++;
+    getImages(`${endpoint}&page=${count}`);
+  }
+});
+
+
+logo.addEventListener("click", (event) => {
+  logo.classList.toggle("transform");
+  generateQuote();
+})
 
 
 let quotes = [{
@@ -67,7 +100,7 @@ let quotes = [{
 function generateQuote() {
   const random = Math.floor(Math.random() * quotes.length);
   quote.innerHTML = quotes[random].quote;
-  author.innerHTML = `&mdash; ${quotes[random].attrib}`;
+  author.innerHTML = ` &mdash; ${quotes[random].attrib}`;
 }
 
 generateQuote();

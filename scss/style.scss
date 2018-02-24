@@ -17,7 +17,11 @@ header {
   text-align: center;
 
   #logo {
+    transition: all 1s ease-in-out;
+  }
 
+  .transform {
+    transform: rotate(360deg);
   }
 }
 
@@ -25,21 +29,25 @@ main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 3rem;
+  justify-items: center;
 
   article {
     position: relative;
+    overflow: hidden;
 
-
-    &:hover h5 {
+    &:hover ul {
       opacity: 1;
       transform: translateY(0px);
     }
 
-    h5 {
+    ul {
       opacity: 0;
+      list-style-type: none;
+      list-style-image: url("../images/user-icon.svg");
+      list-style-position: inside;
       display: block;
       position: absolute;
-      bottom: .7rem;
+      bottom: 0.7rem;
       padding: 2rem;
       background-color: rgba(0,0,0,.75);
       color: white;
@@ -47,6 +55,10 @@ main {
       margin: 0;
       transition: all 0.25s ease-out;
       transform: translateY(30px);
+
+      li:last-of-type {
+        list-style-image: url("../images/heart.svg");
+      }
     }
 
     img {
@@ -67,11 +79,24 @@ h1 {
 }
 
 #quote {
-  margin: 0 0 5rem 0;
-  display: inline;
+  margin: 0 0 4rem;
 }
 
 #author {
   margin: 0;
   display: inline;
+}
+
+
+@media screen and (max-width: 600px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+@media screen and (min-width: 601px) and (max-width: 767px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
 }

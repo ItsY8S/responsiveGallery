@@ -12,21 +12,30 @@ body {
 header {
   margin-top: 3rem;
   text-align: center; }
+  header #logo {
+    transition: all 1s ease-in-out; }
+  header .transform {
+    transform: rotate(360deg); }
 
 main {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 3rem; }
+  grid-gap: 3rem;
+  justify-items: center; }
   main article {
-    position: relative; }
-    main article:hover h5 {
+    position: relative;
+    overflow: hidden; }
+    main article:hover ul {
       opacity: 1;
       transform: translateY(0px); }
-    main article h5 {
+    main article ul {
       opacity: 0;
+      list-style-type: none;
+      list-style-image: url("../images/user-icon.svg");
+      list-style-position: inside;
       display: block;
       position: absolute;
-      bottom: .7rem;
+      bottom: 0.7rem;
       padding: 2rem;
       background-color: rgba(0, 0, 0, 0.75);
       color: white;
@@ -34,6 +43,8 @@ main {
       margin: 0;
       transition: all 0.25s ease-out;
       transform: translateY(30px); }
+      main article ul li:last-of-type {
+        list-style-image: url("../images/heart.svg"); }
     main article img {
       margin: 0 auto;
       width: 100%;
@@ -47,9 +58,16 @@ h1 {
   margin: 0; }
 
 #quote {
-  margin: 0 0 5rem 0;
-  display: inline; }
+  margin: 0 0 4rem; }
 
 #author {
   margin: 0;
   display: inline; }
+
+@media screen and (max-width: 600px) {
+  main {
+    grid-template-columns: 1fr; } }
+
+@media screen and (min-width: 601px) and (max-width: 767px) {
+  main {
+    grid-template-columns: 1fr 1fr; } }
